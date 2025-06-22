@@ -2,10 +2,7 @@
 - Local & Global Variables
 - Modifying Globals within a function
 - Anonymous / Lambda Functions
-- Functions and Containers
-  - filter
-  - map
-  - nesting filter and map
+- List Comprehensions - a powerful alternative to map and filter
 
 ---
 
@@ -88,65 +85,63 @@ print(func3(2, 3, 4))
 
 ---
 
-## Functions and Containers
-- Functional programming style operations available on containers, also known as Higher Order Functions.
+## List Comprehensions: A Powerful Alternative
 
-### filter()
-- Filters out elements from a collection.
-- The returned iterable is the same size or smaller than the original collection.
+While Python offers functional programming tools like `map` and `filter`, a more common and often more readable approach is to use **list comprehensions**. They provide a concise way to create lists based on existing lists.
 
-### map()
-- Applies a function to all elements in a collection.
-- The returned iterable is always the same size as the original.
+### Basic Syntax (Mapping)
+You can use a list comprehension to apply an expression to every item in a list, similar to `map`.
 
-### Example Using filter():
+**Syntax:** `[expression for item in list]`
+
+**Example:** Let's get the word count for each headline.
 ```python
-data = [1, 3, 5, 2, 7, 4, 10]
-print('data:', data)
+headlines = [
+    "General election: Labour and Tories clash over tax",
+    "England crowned T20 world champions",
+    "Summer travel chaos feared as airline strikes loom"
+]
 
-# Filter for even numbers using a lambda function
-d1 = list(filter(lambda i: i % 2 == 0, data))
-print(f'filtered d1: {d1}')
-
-def is_even(i):
-    return i % 2 == 0
-
-d2 = list(filter(is_even, data))
-print(f'filtered d2: {d2}')
+word_counts = [len(h.split()) for h in headlines]
+print(word_counts)
+# Output: [7, 5, 7]
 ```
 
-### Example Using map():
+### Adding a Condition (Filtering)
+You can add an `if` condition to the end of a list comprehension to filter items from the original list, similar to `filter`.
+
+**Syntax:** `[item for item in list if condition]`
+
+**Example:** Let's find only the headlines that mention "tax".
 ```python
-data = [1, 3, 5, 2, 7, 4, 10]
-print('data:', data)
+headlines = [
+    "General election: Labour and Tories clash over tax",
+    "England crowned T20 world champions",
+    "Summer travel chaos feared as airline strikes loom"
+]
 
-# Apply the lambda function to each element in the list using the map function
-d1 = list(map(lambda i: i + 1, data))
-print('d1:', d1)
-
-def add_one(i):
-    return i + 1
-
-# Apply the add_one function to each element in the list using the map function
-d2 = list(map(add_one, data))
-print('d2:', d2)
+tax_headlines = [h for h in headlines if 'tax' in h.lower()]
+print(tax_headlines)
+# Output: ['General election: Labour and Tories clash over tax']
 ```
 
-### Nesting Operations
-- Can nest operations: apply `filter` to initial data to find even numbers, use `map` to add 10 to the iterable returned from `filter`.
+### Combining Mapping and Filtering
+You can combine both to perform a mapping operation on a filtered set of data.
 
-### Example:
+**Example:** Let's get the word counts of only the headlines that are longer than 6 words.
 ```python
-data = [1, 3, 5, 2, 7, 4, 10]
-print('data:', data)
+headlines = [
+    "General election: Labour and Tories clash over tax", # 7 words
+    "England crowned T20 world champions", # 5 words
+    "Summer travel chaos feared as airline strikes loom", # 7 words
+    "New David Hockney exhibition opens in London" # 7 words
+]
 
-def is_even(i):
-    return i % 2 == 0
-
-# Filter for even numbers and use map to add 10
-new_data = list(map(lambda i: i + 10, filter(is_even, data)))
-print('new_data:', new_data)
+long_headline_lengths = [len(h.split()) for h in headlines if len(h.split()) > 6]
+print(long_headline_lengths)
+# Output: [7, 7, 7]
 ```
+List comprehensions are a powerful and widely-used feature of Python for data manipulation.
 
 ---
 

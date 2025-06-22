@@ -1,192 +1,111 @@
-# Lab 5: Functions
+# Lab 5: Building a Headline Analysis Toolkit with Functions
 
-The aim of this lab is to develop a number of functions that can be used within the temperature readings data application you created in the last lab.
+The aim of this lab is to practice writing functions to create a reusable, organized toolkit. We will refactor our previous headline analysis script into a set of functions that can be easily called and tested.
 
-Each of the functions to be created will take the readings in as a data parameter and perform some operation on the data. For example, the average or minimum or maximum values might be obtained.
+This lab is made up of 4 steps:
+1.  Set up your script with the headline data.
+2.  Write a function to get the length of a single headline.
+3.  Write a function to search for headlines containing a keyword.
+4.  Write a main `analyse_all_headlines` function that uses the other functions.
 
-This lab is made up of 6 steps:
-1. Implement a function to average the temperatures
-2. Implement a function to calculate the median
-3. Minimum and maximum functions
-4. Return a data range
-5. Convert Celsius to Fahrenheit
-6. Convert Fahrenheit into Celsius
+---
+## Step 1: Getting Started
 
-Steps 3 onwards should be treated as extension points if you are new to programming.
+Create a new Python file, e.g., `headline_analyzer.py`.
 
-## Step 0: Change the Code to Use Hard-Coded List
-
-To speed up running your application, you might want to change the readings to be initialized as follows:
+You'll need the same list of headlines from the previous labs:
 
 ```python
-readings = [13.5, 11.1, 17.5, 12.6, 15.3, 12.2, 16.6, 14.6]
+headlines = [
+    "General election: Labour and Tories clash over tax",
+    "England crowned T20 world champions",
+    "Summer travel chaos feared as airline strikes loom",
+    "UK inflation rate falls to lowest level in three years",
+    "New David Hockney exhibition opens in London",
+    "Science discovers new way to tackle plastic waste",
+    "Government announces new funding for NHS",
+    "Stock market hits record high on tech boom",
+    "Debate rages over future of Artificial Intelligence",
+    "Classic Doctor Who episodes to be released in colour"
+]
 ```
 
-This means you can use `-1` to just get the code to run the application without needing you to enter the data interactively.
+---
+## Step 2: A Function to Get Word Count
 
-## Step 1: Implement a Function to Average the Temperatures
+Let's start with a simple, focused function.
 
-The first function to create will average the temperatures in the list. There are several ways in which you could do this, but the simplest is to use the built-in functions `sum()` and `len()` to total up the values in a list and divide that value by the length of the list. For example:
+**Your goal:** Create a function `get_word_count(headline_text)` that takes a single headline string as an argument and returns the number of words in it.
+
+**Hints:**
+- Define your function using `def get_word_count(headline_text):`.
+- Inside the function, use the `.split()` method on `headline_text` to turn it into a list of words.
+- Use `len()` to find the length of that list.
+- Use the `return` keyword to send this number back as the function's result.
+- You can test it by calling `print(get_word_count("This is a test headline"))`. It should print `5`.
+
+---
+## Step 3: A Function to Find Headlines with a Keyword
+
+Now, let's create a function that filters our list.
+
+**Your goal:** Create a function `find_headlines_with_keyword(list_of_headlines, keyword)` that takes the full list of headlines and a search term. It should return a *new list* containing only the headlines that match the keyword.
+
+**Hints:**
+- Define your function: `def find_headlines_with_keyword(list_of_headlines, keyword):`.
+- Inside the function, create an empty list, maybe called `matching_headlines`.
+- Loop through each `headline` in the `list_of_headlines`.
+- Inside the loop, use an `if` statement to check if the `keyword` (in lowercase) is `in` the `headline` (also in lowercase).
+- If it matches, use the `.append()` method to add the headline to your `matching_headlines` list.
+- After the loop has finished, `return` the `matching_headlines` list.
+
+---
+## Step 4: A Main Analysis Function
+
+Finally, let's create a "main" function that orchestrates our analysis and prints a summary. This is a common pattern in larger scripts.
+
+**Your goal:** Create a function `analyse_all_headlines(list_of_headlines)` that calculates and prints the average headline length.
+
+**Hints:**
+- Define your function: `def analyse_all_headlines(list_of_headlines):`.
+- Inside it, create a `total_words` counter, initialized to `0`.
+- Loop through each `headline` in the `list_of_headlines`.
+- In the loop, call your `get_word_count()` function, passing the current `headline` to it. Add the result to `total_words`.
+- After the loop, calculate the average and print it in a user-friendly format.
+
+---
+## Tying It All Together
+
+After you have defined all your functions, the main part of your script (at the bottom, not indented) is where you call them to produce the final output.
+
+**Example script structure:**
 
 ```python
-def average(data):
-    return sum(data) / len(data)
+# ... (your list of headlines here) ...
+
+# --- Function Definitions ---
+def get_word_count(headline_text):
+    # ... your code here ...
+
+def find_headlines_with_keyword(list_of_headlines, keyword):
+    # ... your code here ...
+
+def analyse_all_headlines(list_of_headlines):
+    # ... your code here ...
+
+
+# --- Main Script ---
+print("--- Headline Analysis ---")
+analyse_all_headlines(headlines)
+
+print("\n--- Searching for 'New' ---")
+new_headlines = find_headlines_with_keyword(headlines, "new")
+for h in new_headlines:
+    print(h)
+
+print("\n--- Searching for 'Tax' ---")
+tax_headlines = find_headlines_with_keyword(headlines, "tax")
+for h in tax_headlines:
+    print(h)
 ```
-
-You can test your function using the code you have already written to obtain a list of readings from the user. For example:
-
-```python
-# Find the average and median values - note old and new styles
-print('Average temperature = {:.2f}'.format(average(readings)))
-print(f'Average temperature = {average(readings):.2f}')
-```
-
-Note that in this example, we have used the `format()` function available on strings. This can be used to indicate that the average should be formatted to two decimal places (see [W3Schools Python String format() Method](https://www.w3schools.com/python/ref_string_format.asp)).
-
-## Step 2: Implement a Function to Calculate the Median
-
-For the next function, we will implement a function that will return the median value (if there is one) or an approximation if there is an even number of values.
-
-Call the function `median`. This function will require the data to be sorted, so we will use the `sorted()` function for a list rather than the `sort()` operation on a list. This is because `sorted` does not modify the original list.
-
-We can then find the median value if present; if not, we can take the average between the two values in the middle of the range.
-
-For example:
-
-```python
-def median(data):
-    """Calculates the median value in a list or tuple"""
-    sorted_data = sorted(data)
-    data_length = len(data)
-    index = (data_length - 1) // 2
-    if data_length % 2 == 1:  # Checks for an odd number
-        return sorted_data[index]
-    else:
-        return (sorted_data[index] + sorted_data[index + 1]) / 2.0
-```
-
-You can now test this function using your readings:
-
-```python
-print(f'Median temperature value = {median(readings)}')
-```
-
-## Step 3: Minimum and Maximum Functions
-
-The aim of these functions is to write a function that will return the minimum or maximum value in the list starting at a particular point in the list. They thus take two parameters: the data to search through and the starting index to use. For example, you should be able to write:
-
-```python
-print(f'Min temp in list = {minimum(readings)}')
-print(f'Min temp in list start position 4 = {minimum(readings, 3)}')
-print(f'Max temp in list = {maximum(readings)}')
-print(f'Max temp in list starting position 4 = {maximum(readings, 3)}')
-```
-
-Note that the second parameter, the index, has a default value that is used if no value is supplied when the function is called. This default value should be `0`.
-
-Note that lists support the concept of slices.
-
-To obtain a sub-list starting at a particular location, you can use the slice syntax. The slice syntax uses the `[]` index operator but uses a `:` to indicate the scope of the slice as shown below:
-
-```python
-list[start:stop]  # Items start through stop-1
-list[start:]      # Items start through the rest of the list
-list[:stop]       # Items from the beginning through stop-1
-list[:]           # A copy of the whole list
-```
-
-## Step 4: Return a Data Range Tuple
-
-The `data_range` function returns the minimum and maximum values in the temperature list. For example:
-
-```python
-min_temp, max_temp = data_range(readings)
-print(f'Range of temperatures from {min_temp} to {max_temp}')
-```
-
-This should produce output like:
-
-```
-Range of temperatures from 11.1 to 17.5
-```
-
-## Step 5: Convert Celsius to Fahrenheit
-
-The final function to implement is a `celsius_to_fahrenheit` converter function. This function is given a number representing a temperature in Celsius and returns that temperature in Fahrenheit.
-
-The calculation for this is:
-
-```python
-(celsius * 9 / 5) + 32
-```
-
-The `celsius_to_fahrenheit()` might be called in the following way:
-
-```python
-print(f'13.5 celsius as fahrenheit - {celsius_to_fahrenheit(13.5)}')
-```
-
-The output from this would be:
-
-```
-13.5 celsius as fahrenheit - 56.3
-```
-
-## Step 6: Convert Fahrenheit into Celsius
-
-You should also define a function to convert Fahrenheit into Celsius. For example:
-
-```python
-def fahrenheit_to_celsius(fahrenheit):
-    return (fahrenheit - 32) * 5 / 9
-```
-
-Then you can test it:
-
-```python
-print(f'56.3 fahrenheit as celsius - {fahrenheit_to_celsius(56.3):.1f}')
-```
-
-## Sample Solution
-
-```python
-def average(data):
-    """Returns the average of the values in the data iterable"""
-    return sum(data) / len(data)
-
-def median(data):
-    """Calculates the median value in a list or tuple"""
-    sorted_data = sorted(data)
-    data_length = len(data)
-    index = (data_length - 1) // 2
-    if data_length % 2 == 1:  # Checks for an odd number
-        return sorted_data[index]
-    else:
-        return (sorted_data[index] + sorted_data[index + 1]) / 2.0
-
-def minimum(data, index=0):
-    """Returns the minimum value in a list or tuple starting at index"""
-    if index == 0:
-        data_slice = data
-    else:
-        data_slice = data[index:]
-    return min(data_slice)
-
-def maximum(data, index=0):
-    """Returns the maximum value in a list or tuple starting at index"""
-    if index == 0:
-        data_slice = data
-    else:
-        data_slice = data[index:]
-    return max(data_slice)
-
-def data_range(data):
-    """Returns the minimum and maximum values in data"""
-    return minimum(data), maximum(data)
-
-def celsius_to_fahrenheit(celsius):
-    return (celsius * 9 / 5) + 32
-
-def fahrenheit_to_celsius(fahrenheit):
-    return (fahrenheit - 32) * 5 / 9
-```
+This structure makes your code clean, readable, and easy to modify. Each function has one clear job. 

@@ -1,8 +1,0 @@
-This is line 1
-line 2
-a
-b
-c
-1
-2
-3

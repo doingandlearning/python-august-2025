@@ -1,6 +1,6 @@
 # Python Programming Course (Comprehensive Overview)
 
-- Dates: 17th-19th March 2025 
+- Dates: 22nd-24th June 2025
 - Instructor: Kevin Cunningham
   - [Email](mailto:kevin@kevincunningham.co.uk)
   - [My website](https://kevincunningham.co.uk)
@@ -20,7 +20,7 @@
 
 ## Course Overview
 
-This three-day course is designed to equip you with both foundational and advanced Python skills through a structured, hands-on approach. You’ll explore Python's core language features, dive into practical programming concepts, and gain exposure to essential libraries and tools. By the end, you'll be able to apply Python confidently across various real-world applications, bridging the gap between learning and doing with solid examples and clear best practices.
+This three-day course offers a practical, hands-on journey into the world of Python programming. We'll cover the essential language features and build your skills progressively. To make the learning concrete and engaging, our labs will follow a central theme: analyzing real-world news headlines. You'll start with basic scripts and build up to a final project that fetches live news from the internet, processes the data, and generates an analysis report. By the end, you'll have the confidence to apply Python to practical data-handling tasks.
 
 ## Session Topics
 
@@ -52,7 +52,7 @@ This three-day course is designed to equip you with both foundational and advanc
 
 - Advanced data structures in Python
 - Working with lists, sets, and dictionaries
-- Understanding and using list comprehensions
+- Performing basic data analysis
 
 ### 6. Functions
 
@@ -62,8 +62,8 @@ This three-day course is designed to equip you with both foundational and advanc
 
 ### 7. Further Functions
 
-- Recursion and higher-order functions
-- Decorators and closures
+- Understanding and using list comprehensions
+- A concise way to create lists
 - Practical examples and use cases
 
 ### 8. Classes and Object-Oriented Programming
@@ -72,53 +72,37 @@ This three-day course is designed to equip you with both foundational and advanc
 - Defining classes and creating instances
 - Understanding `self`, constructors, and methods
 
-### 9. Operator Overloading
-
-- Customizing the behavior of Python's operators
-- Implementing special methods like `__add__`, `__sub__`, and `__eq__`
-- Practical applications of operator overloading
-
-### 10. Inheritance
-
-- Principles of inheritance in Python
-- Creating subclasses and extending base class functionality
-- Method overriding and the use of `super()`
-
-```python
-class TemperatureReading(Temperature, Reading):
-```
-
-### 11. Modules
+### 9. Modules
 
 - Organizing code into modules
 - Importing and using Python's standard and third-party libraries
 - Best practices for module design and usage
 
-### 12. Error Handling
+### 10. Error Handling
 
 - Exception handling in Python with `try`, `except`, `finally`
 - Raising exceptions and custom exception classes
 - Debugging and error management strategies
 
-### 13. Testing
+### 11. Testing
 
-- Writing tests in Python using `unittest` and `pytest`
+- Writing tests in Python using `pytest`
 - Test-driven development (TDD) principles
 - Mocking and coverage analysis
 
-### 14. File Handling
+### 12. File Handling & APIs
 
 - Reading from and writing to files
-- Working with CSV, JSON, and other file formats
-- Best practices for file I/O operations
+- Working with JSON data
+- Fetching live data from a web API
 
-### 15. Matplotlib (Optional)
+### 13. Matplotlib (Optional)
 
 - Introduction to data visualization with Matplotlib
 - Creating basic plots, charts, and graphs
 - Customizing and exporting visualizations
 
-### 16. Generators (Optional)
+### 14. Generators (Optional)
 
 - Understanding Python generators and `yield`
 - Creating and using generator functions

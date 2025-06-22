@@ -1,280 +1,171 @@
-# Lab: Fetch, Parse, and Save Data from an API
+# Lab Z: Final Case Study - Live News Analysis
 
-In this lab, you'll use the `requests` library to retrieve data from a public API, parse the data, and save it as a JSON file. This lab will help reinforce your skills in working with APIs, JSON, and file handling.
+In this final case-study, you will bring together all the skills you have learned in this course to build a complete news analysis application.
+
+You'll be reading live news data from the internet, processing it using a class you design, performing analysis, and writing a report to a file.
+
+## The Goal
+
+Your task is to fetch recent news headlines from a live API, analyze the sources of these headlines, and generate a `report.txt` file that summarizes how many headlines came from each source.
+
+The final output, `report.txt`, should look something like this:
+
+```text
+--- NEWS SOURCE REPORT ---
+There are 40 total headlines.
+The following sources were found:
+
+* BBC News: 10 headlines
+* Reuters: 8 headlines
+* The Guardian: 7 headlines
+* ...and so on for all sources
+```
+
+## Core Concepts Review
+
+This lab will require you to use:
+
+*   **File I/O:** To write your final report.
+*   **APIs & Networking:** To fetch the live headline data.
+*   **Lists & Dictionaries:** To store and analyze the data.
+*   **Classes:** To structure your headline data neatly.
+*   **Functions:** To organize your code into logical, reusable blocks.
+*   **Modules:** To keep your code clean and separated.
 
 ---
 
-## Objectives
+## Setup: API Key and 'requests' library
 
-1. Use `requests` to fetch data from an API.
-2. Parse the JSON response and extract specific information.
-3. Write the parsed data to a JSON file.
+### 1. Install the 'requests' library
 
----
-
-### Setup
-
-Ensure you have the `requests` library installed. You can install it via pip if needed:
+To fetch data from the internet, we need a library to handle the HTTP requests for us. The most popular one in Python is called `requests`. If you haven't already, open your terminal or command prompt and run the following command:
 
 ```bash
 pip install requests
 ```
 
+### 2. Get a NewsAPI Key
+
+The API we will be using is [NewsAPI](https://newsapi.org/), a professional and widely-used service. It requires an API key to identify your requests.
+
+For this course, a key will be provided to you. In a real-world project, you would go to their website and register for a free developer key.
+
 ---
 
-## Step 1: Fetch Data from an API
+## Step 1: The `headline_module.py`
 
-We'll use the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/) for this lab, which provides placeholder data for testing. Let's fetch a list of posts.
+This step is the same as the one from the Modules and Testing labs.
 
-### Task
+Create a file named `headline_module.py`. In this file, define the `Headline` class.
 
-1. Import the `requests` module.
-2. Use `requests.get()` to fetch data from the endpoint: `https://jsonplaceholder.typicode.com/posts`.
-3. Check the response status and print an error if the request fails.
-4. Print the JSON data to understand the structure.
+**`Headline` Class Requirements:**
 
-### Example Code
+*   An `__init__` method that accepts `title` and `source` as arguments and stores them as attributes.
+*   A `__str__` method that returns a formatted string, for example: `"The title is 'The Title' from 'The Source'"`
+
+> **Hint:** You can copy the class you created in the Classes lab.
+
+## Step 2: The `main_analysis.py`
+
+Create a second file named `main_analysis.py`. This will be where the main logic of your application lives.
+
+Start by importing the `Headline` class from your `headline_module.py` and the `requests` library.
 
 ```python
 import requests
-
-# Define the API endpoint
-url = "https://jsonplaceholder.typicode.com/posts"
-
-# Fetch data from the API
-response = requests.get(url)
-
-# Check if the request was successful
-if response.status_code == 200:
-    data = response.json()  # Parse JSON data
-    print("Data fetched successfully.")
-else:
-    print(f"Failed to fetch data: {response.status_code}")
-    data = []  # Set data to an empty list if request failed
+from headline_module import Headline
 ```
 
-### Expected Output
+## Step 3: Fetching the Data from the API
 
-You should see "Data fetched successfully." if the request was successful. To see the structure of the data, print the first item:
+We will fetch live data from **NewsAPI**. The endpoint we will use is `https://newsapi.org/v2/top-headlines`.
 
-```python
-print(data[0])  # Print the first post to examine its structure
-```
+A key limitation of the free "Developer" plan on NewsAPI is that you cannot filter by `country` or `category`. You can only fetch headlines from a specific list of `sources`. This is a common practice for APIs to encourage users to move to paid plans for more advanced filtering.
 
----
+For our lab, we will request headlines from a few major english-speaking sources like the BBC and Independent.
 
-## Step 2: Parse the Data
+The data comes back in a format called **JSON**. It will look something like this:
 
-Now that we have the data, let's parse it and select only specific fields to save. For each post, we'll keep:
-
-- `userId`
-- `id`
-- `title`
-- `body`
-
-### Task
-
-1. Use a list comprehension to create a list of dictionaries.
-2. Each dictionary should contain only the `userId`, `id`, `title`, and `body` fields.
-
-### Example Code
-
-```python
-# Parse and filter data
-filtered_data = [
+```json
+{
+  "status": "ok",
+  "totalResults": 38,
+  "articles": [
     {
-        "userId": post["userId"],
-        "id": post["id"],
-        "title": post["title"],
-        "body": post["body"]
-    }
-    for post in data
-]
-
-# Print a sample of the filtered data
-print(filtered_data[0])  # Print the first post to check the structure
-```
-
----
-
-## Step 3: Write the Data to a JSON File
-
-With the parsed data ready, we’ll now save it to a JSON file on the local file system.
-
-### Task
-
-1. Import the `json` module.
-2. Write `filtered_data` to a file named `posts.json`.
-3. Use `indent=4` for pretty formatting in the JSON file.
-
-### Example Code
-
-```python
-import json
-
-# Write the filtered data to a JSON file
-with open("posts.json", "w") as file:
-    json.dump(filtered_data, file, indent=4)
-
-print("Data saved to posts.json")
-```
-
----
-
-## Step 4: Verify the Output
-
-1. Open the `posts.json` file in a text editor to confirm that the data is correctly formatted.
-2. You should see JSON data with the fields `userId`, `id`, `title`, and `body` for each post.
-
----
-
-## Full Example Code
-
-Here's the complete code for the lab:
-
-```python
-import requests
-import json
-
-# Step 1: Fetch Data from the API
-url = "https://jsonplaceholder.typicode.com/posts"
-response = requests.get(url)
-
-# Check if the request was successful
-if response.status_code == 200:
-    data = response.json()  # Parse JSON data
-    print("Data fetched successfully.")
-else:
-    print(f"Failed to fetch data: {response.status_code}")
-    data = []
-
-# Step 2: Parse and Filter Data
-filtered_data = [
+      "source": { "id": "bBC-news", "name": "BBC News" },
+      "author": "BBC News",
+      "title": "UK economy grows more slowly than expected in January - BBC News",
+      "description": "The economy grew by 0.8% at the start of the year, but is still smaller than before the pandemic.",
+      "url": "https://www.bbc.co.uk/news/business-60706216",
+      "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/1547F/production/_123633538_mediaitem123633537.jpg",
+      "publishedAt": "2022-03-11T07:49:35Z",
+      "content": "By Faisal Islam, economics editor"
+    },
     {
-        "userId": post["userId"],
-        "id": post["id"],
-        "title": post["title"],
-        "body": post["body"]
+       "source": { "id": "reuters", "name": "Reuters" },
+       "author": null,
+       "title": "ECB to stop bond-buying,..."
+       /* ... more fields ... */
     }
-    for post in data
-]
-
-# Step 3: Write the Data to a JSON File
-with open("posts.json", "w") as file:
-    json.dump(filtered_data, file, indent=4)
-
-print("Data saved to posts.json")
+  ]
+}
 ```
+
+Notice two important things:
+1.  The actual news articles are in a list under the `articles` key.
+2.  The source's name is nested inside a dictionary under the `source` key.
+
+**Your Task:**
+
+Create a function `load_headlines_from_api(api_key)` that does the following:
+
+1.  Accepts your `api_key` as an argument.
+2.  Defines the URL: `https://newsapi.org/v2/top-headlines`.
+3.  Defines the parameters for the request. Create a dictionary `params` that includes the `sources` (e.g., `'bbc-news,independent'`) and your `apiKey`.
+4.  Sends the request using `requests.get(url, params=params)`.
+5.  Add robust error handling with a `try...except` block and check `response.status_code`.
+6.  If successful, get the JSON data. Access the list of articles using `response.json()['articles']`.
+7.  Create an empty list for your `Headline` objects.
+8.  Loop through the list of article dictionaries. In each iteration:
+    *   Extract the `title`.
+    *   Extract the source's `name` from the nested `source` dictionary. Be careful! Use `.get()` to avoid errors if a key is missing. e.g., `article_data.get('source', {}).get('name')`.
+    *   Create a `Headline` object.
+    *   Append it to your list.
+9.  Return the list of `Headline` objects.
+
+## Step 4: Analyzing the Sources
+
+Create a function `analyze_sources(headlines)` that takes the list of `Headline` objects and returns a dictionary.
+
+*   The **keys** of the dictionary should be the news sources (e.g., `'belfasttelegraph.co.uk'`).
+*   The **values** should be the number of times that source appeared.
+
+**Example output:** `{'belfasttelegraph.co.uk': 10, 'hindustantimes.com': 8}`
+
+> **Hint:** You can loop through the list of `Headline` objects. For each object, check if its `source` is already a key in your results dictionary. If it is, increment the value. If not, add it to the dictionary with a value of 1.
+
+## Step 5: Generating the Report
+
+Create a function `generate_report(analysis, total_headlines)` that takes the source analysis dictionary and the total number of headlines.
+
+This function should create a multi-line string containing the formatted report, as shown in the "Goal" section at the top.
+
+> **Hint:** Start with a header string. Then, loop through the `analysis` dictionary's items (`.items()`) to build the list of sources and their counts.
+
+## Step 6: Putting It All Together
+
+Create a `main()` function and use the `if __name__ == "__main__":` block to call it.
+
+The `main()` function should:
+
+1.  **Store your API key.** Create a variable at the top of your script (or inside main) and assign your API key string to it. **Do not share this key publicly.**
+2.  Call `load_headlines_from_api()` with your key to get the headlines.
+3.  Check if any headlines were returned. If not, print a message and exit.
+4.  Call `analyze_sources()` to get the source analysis.
+5.  Call `generate_report()` to create the report string.
+6.  Open `report.txt` in write mode (`'w'`) and save the report. Remember to specify `encoding='utf-8'` to handle special characters.
+7.  Print a confirmation message to the console.
 
 ---
 
-## Summary
-
-In this lab, you:
-
-1. Fetched data from an API using `requests`.
-2. Parsed and filtered specific fields from the JSON response.
-3. Wrote the filtered data to a local JSON file.
-
-This workflow is common when working with APIs and allows you to retrieve, process, and store data effectively. You can try modifying the API endpoint to explore other data (e.g., `https://jsonplaceholder.typicode.com/users`) or further manipulate the data before saving it.
-
----
-
-# Extensions
-
-### Extension 1: Error Handling for Robustness
-
-1. **Handle Connection Errors**: Wrap the API request in a `try-except` block to handle network issues gracefully.
-   ```python
-   try:
-       response = requests.get(url)
-       response.raise_for_status()  # Raises an HTTPError for bad responses
-   except requests.exceptions.RequestException as e:
-       print(f"Error fetching data: {e}")
-       data = []  # Set data to an empty list if request fails
-   ```
-
-2. **Handle JSON Parsing Errors**: Use a `try-except` block when parsing JSON data to manage cases where the response might not be valid JSON.
-   ```python
-   try:
-       data = response.json()
-   except json.JSONDecodeError:
-       print("Error decoding JSON data.")
-       data = []
-   ```
-
-### Extension 2: Fetch and Save Data in CSV Format
-
-Save the data as a CSV file instead of JSON, which can be useful for spreadsheet applications.
-
-1. Import the `csv` module.
-2. Define headers and write each post as a row.
-
-```python
-import csv
-
-# Define the headers
-headers = ["userId", "id", "title", "body"]
-
-# Write to CSV file
-with open("posts.csv", "w", newline="") as csvfile:
-    writer = csv.DictWriter(csvfile, fieldnames=headers)
-    writer.writeheader()
-    writer.writerows(filtered_data)
-
-print("Data saved to posts.csv")
-```
-
-### Extension 3: Fetch Additional Data and Combine It
-
-Fetch data from a second endpoint (e.g., `https://jsonplaceholder.typicode.com/users`) and combine it with the post data. For example, you could add the user’s name to each post.
-
-1. Fetch user data.
-2. Create a dictionary mapping `userId` to `username`.
-3. Add the username to each post before saving.
-
-```python
-# Fetch user data
-user_response = requests.get("https://jsonplaceholder.typicode.com/users")
-user_data = user_response.json()
-
-# Map userId to username
-user_map = {user["id"]: user["username"] for user in user_data}
-
-# Add username to each post
-for post in filtered_data:
-    post["username"] = user_map.get(post["userId"], "Unknown")
-```
-
-### Extension 4: Schedule Data Fetching with `time.sleep`
-
-To simulate periodic fetching, use `time.sleep` to request data every few seconds or minutes.
-
-```python
-import time
-
-while True:
-    # Your data fetching code here
-    print("Fetching data...")
-    # Process and save data
-    time.sleep(300)  # Wait 5 minutes before fetching again
-```
-
-### Extension 5: Create a JSON Backup
-
-Before each new data fetch, create a backup of the existing `posts.json` file by renaming it with a timestamp. This allows you to keep older data while fetching fresh data.
-
-```python
-import os
-import shutil
-from datetime import datetime
-
-# Create a timestamped backup if posts.json exists
-if os.path.exists("posts.json"):
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    shutil.copy("posts.json", f"posts_backup_{timestamp}.json")
-    print(f"Backup created: posts_backup_{timestamp}.json")
-```
-
-
-
+Good luck! This final lab is your chance to see how all the individual pieces you've learned can come together to create a useful, real-world application. 

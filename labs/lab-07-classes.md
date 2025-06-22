@@ -1,121 +1,68 @@
-# Lab 7: Classes
+# Lab 7: Structuring Data with Classes
 
-The aim of this lab is to allow you to explore the creation of Python classes. You will create a class to represent the temperature readings we have been working on. This class will not just represent the reading but also provide other information about the reading, such as the date of the reading, the location, and the scale used for the reading, such as Celsius or Fahrenheit.
+So far, we've been working with headlines as simple strings. This is fine, but as our data gets more complex, it's better to structure it. Classes are the perfect tool for this.
 
-The lab is made up of 4 steps:
-1. Create the class
-2. Add string representation (`__repr__`) behavior to the class
-3. Add a class docstring
-4. Use the class
+The aim of this lab is to create a `Headline` class to hold not just the text of a headline, but also its source. We will then add behavior to this class.
 
-Step 5 onwards should be considered an extension point in this lab.
+This lab is made up of 4 steps:
+1.  Define a basic `Headline` class with an `__init__` method.
+2.  Add a `__repr__` method for a clean string representation.
+3.  Add a `get_word_count()` method to the class.
+4.  Refactor the main script to use a list of `Headline` objects.
 
-## Step 1: Create the Class
+---
+## Step 1: Defining the `Headline` Class
 
-Create a `TemperatureReading` class that we can use with our application.
+Create a new Python file, e.g., `headline_objects.py`.
 
-The `TemperatureReading` class should have the following attributes:
+**Your goal:** Define a class named `Headline`. The "constructor" (`__init__` method) should accept two arguments: the `text` of the headline and its `source` (e.g., "BBC News").
 
-- `temperature`
-- `date` (of the reading)
-- `location` (of the reading)
-- `scale` (either Celsius or Fahrenheit) with Celsius as the default
+**Hints:**
+- Start with `class Headline:`.
+- Define the constructor: `def __init__(self, text, source):`.
+- Inside the constructor, you need to store the arguments as attributes of the object. The standard way is `self.text = text` and `self.source = source`.
 
-It should also have an `__init__()` method that will be used to initialize the attributes of the object.
+---
+## Step 2: Adding a String Representation
 
-The class might be defined so far as:
+If you try to print a `Headline` object right now, you'll get something unhelpful like `<__main__.Headline object at 0x10d6d6a90>`. We can fix this with the `__repr__` method.
 
-```python
-CELSIUS = "Celsius"
-FAHRENHEIT = "Fahrenheit"
+**Your goal:** Add a `__repr__` method to your `Headline` class that returns a clear, unambiguous string representation of the object.
 
-class TemperatureReading:
-    def __init__(self, temp, date, location, scale=CELSIUS):
-        self.temp = temp
-        self.date = date
-        self.location = location
-        self.scale = scale
-```
+**Hints:**
+- Define a new method inside the class: `def __repr__(self):`.
+- This method must `return` a string.
+- A good representation shows the class name and its attributes, like: `f"Headline(text='{self.text}', source='{self.source}')"`.
 
-## Step 2: Add String Representation Behavior to the Class
+---
+## Step 3: Adding Behavior with a Method
 
-The `TemperatureReading` class should also have a `__repr__(self)` method and optionally a `__str__(self)` method that can be used to convert the `TemperatureReading` into a string for printing purposes. For example:
+The real power of classes is bundling data (attributes) with the functions (methods) that act on that data.
 
-```python
-def __repr__(self):
-    return f'TemperatureReading({self.temp}, {self.date}, {self.location}, {self.scale})'
+**Your goal:** Create a method `get_word_count()` inside the `Headline` class that returns the number of words in the headline's text.
 
-def __str__(self):
-    return f'TemperatureReading[{self.scale}]({self.temp} on {self.date} at {self.location})'
-```
+**Hints:**
+- Define a new method: `def get_word_count(self):`.
+- The logic is the same as our old standalone function, but now it uses the object's own data: `self.text`.
+- The method should `return len(self.text.split())`.
 
-## Step 3: Add a Class Docstring
+---
+## Step 4: Refactoring Your Code to Use the Class
 
-You could also give the class a docstring that describes its purpose.
+Now it's time to use our new class.
 
-## Step 4: Use the Class
+**Your goal:** Instead of a list of strings, create a list of `Headline` objects. Then, loop through this new list and use the object's method to print the word count for each.
 
-You should now create a list of readings as shown below:
-
-```python
-readings = [
-    TemperatureReading(13.5, '01/05/20', 'London', 'Celsius'),
-    TemperatureReading(12.6, '02/05/20', 'London', 'Celsius'),
-    TemperatureReading(15.3, '03/05/20', 'London', 'Celsius'),
-    TemperatureReading(12.2, '04/05/20', 'London', 'Celsius'),
-    TemperatureReading(16.6, '05/05/20', 'London', 'Celsius'),
-    TemperatureReading(14.6, '05/05/20', 'London', 'Celsius'),
-    TemperatureReading(15.6, '05/05/20', 'London', 'Celsius')
-]
-```
-
-You should verify that all functionality still works. It probably won't—so you can comment out the code that doesn't work for now (or see extension point).
-
-## Extension Points
-
-### Step 5: Conversion Method
-
-In terms of behavior, the class should have a `convert` method that will convert an instance of a temperature from Celsius to Fahrenheit or vice versa.
-
-The `convert` function should not modify the original object; instead, it should create a new object representing the new version of the temperature reading with the correct scale specified.
-
-### Step 6: Make Existing Functions Work
-
-Note that some functions may need to change, such as the `median()`, `min()`, and `max()` functions. This is because the values in the list are now `TemperatureReading` objects rather than plain float numbers.
-
-Another utility function may be one to extract a temperature from a temperature reading object, for example:
-
-```python
-def extract_readings(reading):
-    return reading.temp
-```
-
-### Hints
-
-The `convert` function should work as shown below:
-
-```python
-temp1 = TemperatureReading(13.5, '01/05/20', 'London', 'Celsius')
-temp2 = temp1.convert()
-print(f'temp1: {temp1}')
-print(f'temp2: {temp2}')
-```
-
-The output from this code snippet is shown below:
-
-```
-temp1: TemperatureReading[Celsius](13.5 on 01/05/20 at London)
-temp2: TemperatureReading[Fahrenheit](56.3 on 01/05/20 at London)
-```
-
-To print out a list of temperatures using `__repr__`, you can just print:
-
-```python
-print(readings)
-```
-
-But note to print out a list of temperature readings using the `__str__()` method, you can use:
-
-```python
-print(*readings)
-```
+**Hints:**
+- Your old list of strings: `["General election: ...", ...]`
+- Your new list of objects:
+  ```python
+  headlines = [
+      Headline("General election: Labour and Tories clash over tax", "BBC News"),
+      Headline("England crowned T20 world champions", "Sky Sports"),
+      # ... and so on for the rest
+  ]
+  ```
+- Now, loop through this list: `for h in headlines:`.
+- Inside the loop, you no longer need a separate function to get the word count. You can call the method directly on the object: `count = h.get_word_count()`.
+- Print out the headline's text and its word count. Notice how much cleaner `h.get_word_count()` is than `get_word_count(h)`. It reads "tell the headline to get its own word count." 
