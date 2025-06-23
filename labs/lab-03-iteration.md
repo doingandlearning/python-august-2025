@@ -16,6 +16,12 @@ First, you need to get your Python script ready.
 **Hints:**
 - To generate a random number, you must first `import` the `random` module at the top of your file.
 - Create a variable, for example `secret_channel`, and assign it a random integer. The `random.randint(1, 50)` function is perfect for picking a number between 1 and 50.
+
+```python
+import random
+secret_channel = random.randint(1, 50)
+```
+
 - It's good practice to print a welcome message to the player, explaining the rules. For example: "I'm thinking of a BBC channel number between 1 and 50. You have 5 tries to guess it!".
 
 ---
