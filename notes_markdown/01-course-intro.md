@@ -30,7 +30,6 @@
 - Python Syntax, Types & Flow of Control
 - Python Functions and Higher Order Functions
 - Object-Oriented Programming in Python
-- Operators
 - Python Modules
 - Testing in Python
 - Files and Error Handling
