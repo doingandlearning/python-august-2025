@@ -12,3 +12,5 @@ if is_sunny:
     print("It's quite hot")
 else:
   print("I like it when it's not sunny!")
+
+# minimise nesting ... 
