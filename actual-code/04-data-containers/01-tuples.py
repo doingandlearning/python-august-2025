@@ -42,3 +42,6 @@ for index in range(len(names)):
 
 print(names)
 print(type(names))
+
+print(isinstance("Kevin", int))
+print(isinstance("Kevin", str))
