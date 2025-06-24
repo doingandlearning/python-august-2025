@@ -1,0 +1,1 @@
+print(len("Hello my name is Kevin".split(" ")))

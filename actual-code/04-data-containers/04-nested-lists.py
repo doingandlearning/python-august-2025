@@ -12,5 +12,11 @@ bands = [
 ]
 
 print(bands[0][3])
-print(bands[5][1])
+print(bands[5][1])  # off by one error
 print(bands[4][0])
+print(bands[1:3])
+
+new_band = bands[1].copy()
+new_band.extend(bands[2])
+print(bands[1])
+print(new_band)
