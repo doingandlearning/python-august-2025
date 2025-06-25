@@ -28,7 +28,7 @@ print(article_1)
 print(article_1.word_count())
 print(article_1.preview())
 
-article_1.
+
 
 # alt_article_1 = {
 #   "title": "AI Policy Update",
