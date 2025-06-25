@@ -52,10 +52,13 @@ Now we will fix the bug. We will "try" to convert the user's input to an integer
 ## Stretch tasks (optional)
 
 1. Handle range errors
-   Raise your own ValueError if a user enters a number outside 1-50.
+
+Raise your own ValueError if a user enters a number outside 1-50.
 
 2. Create a helper function
-   Move the prompting code into def get_guess(): …
+
+Move the prompting code into def get_guess(): …
 
 3. Custom exception
-   Define class ChannelError(Exception): pass and raise ChannelError("Out of range") to practise user-defined exceptions.
+
+Define class ChannelError(Exception): pass and raise ChannelError("Out of range") to practise user-defined exceptions.
