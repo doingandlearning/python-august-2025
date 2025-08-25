@@ -1,12 +1,12 @@
 # Python Programming Course (Comprehensive Overview)
 
-- Dates: 22nd-24th June 2025
+- Dates: 26th-28th August 2025
 - Instructor: Kevin Cunningham
   - [Email](mailto:kevin@kevincunningham.co.uk)
   - [My website](https://kevincunningham.co.uk)
-- [Repo link](https://github.com/doingandlearning/python-bbc-june-2025)
-- [Miro link](https://miro.com/app/board/uXjVIl1_gqE=/)
-- [Feedback link](https://forms.office.com/e/9fufvg6p0f)
+- [Repo link](https://github.com/doingandlearning/python-august-2025)
+- [Miro link]()
+- [Feedback link]()
 
 ## Timings:
 
