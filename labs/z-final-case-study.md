@@ -1,16 +1,34 @@
 # Lab Z: Final Case Study - Live News Analysis
 
-In this final case-study, you will bring together all the skills you have learned in this course to build a complete news analysis application.
+### **Objective**
+In this final case study, you will bring together all the skills you have learned in this course to build a complete news analysis application.
 
 You'll be reading live news data from the internet, processing it using a class you design, performing analysis, and writing a report to a file.
 
-## The Goal
+---
+
+## **What is a Case Study?**
+
+**Case studies** are comprehensive projects that integrate multiple concepts and skills into a single, real-world application. They demonstrate how individual programming concepts work together to solve complex problems and provide practical experience with industry-standard development practices.
+
+### **Key Concepts**
+- **Integration**: Combining multiple programming concepts
+- **Real-world Application**: Building practical, useful programs
+- **API Integration**: Working with external data sources
+- **Data Processing**: Analyzing and transforming information
+- **Report Generation**: Creating output files with results
+- **Professional Development**: Industry-standard coding practices
+
+---
+
+## **The Goal**
 
 Your task is to fetch recent news headlines from a live API, analyze the sources of these headlines, and generate a `report.txt` file that summarizes how many headlines came from each source.
 
+### **Expected Output**
 The final output, `report.txt`, should look something like this:
 
-```text
+```
 --- NEWS SOURCE REPORT ---
 There are 40 total headlines.
 The following sources were found:
@@ -21,68 +39,113 @@ The following sources were found:
 * ...and so on for all sources
 ```
 
-## Core Concepts Review
+---
+
+## **Core Concepts Review**
 
 This lab will require you to use:
 
-*   **File I/O:** To write your final report.
-*   **APIs & Networking:** To fetch the live headline data.
-*   **Lists & Dictionaries:** To store and analyze the data.
-*   **Classes:** To structure your headline data neatly.
-*   **Functions:** To organize your code into logical, reusable blocks.
-*   **Modules:** To keep your code clean and separated.
+- **File I/O:** To write your final report
+- **APIs & Networking:** To fetch the live headline data
+- **Lists & Dictionaries:** To store and analyze the data
+- **Classes:** To structure your headline data neatly
+- **Functions:** To organize your code into logical, reusable blocks
+- **Modules:** To keep your code clean and separated
 
 ---
 
-## Setup: API Key and 'requests' library
+## **Setup: API Key and 'requests' library**
 
-### 1. Install the 'requests' library
+### **Tasks**
+1. Install the requests library for HTTP operations
+2. Obtain a NewsAPI key for accessing news data
+3. Set up your development environment
 
-To fetch data from the internet, we need a library to handle the HTTP requests for us. The most popular one in Python is called `requests`. If you haven't already, open your terminal or command prompt and run the following command:
+### **Hints**
+- Use pip to install the requests library
+- The NewsAPI service requires registration for an API key
+- Ensure your Python environment is properly configured
+- Test that you can import the requests library
 
-```bash
-pip install requests
-```
+### **Expected Outcomes**
+- Requests library is successfully installed
+- API key is obtained and ready for use
+- Development environment is properly configured
+- Basic imports work without errors
 
-### 2. Get a NewsAPI Key
-
-The API we will be using is [NewsAPI](https://newsapi.org/), a professional and widely-used service. It requires an API key to identify your requests.
-
-For this course, a key will be provided to you. In a real-world project, you would go to their website and register for a free developer key.
+### **Check Your Work**
+- Can you import the requests library?
+- Do you have a valid API key?
+- Is your Python environment working correctly?
+- Can you run basic Python scripts?
 
 ---
 
-## Step 1: The `headline_module.py`
+## **Step 1: The `headline_module.py`**
 
-This step is the same as the one from the Modules and Testing labs.
+### **Tasks**
+1. Create a file named `headline_module.py`
+2. Define the `Headline` class with required methods
+3. Ensure the class meets all specifications
 
-Create a file named `headline_module.py`. In this file, define the `Headline` class.
+### **Hints**
+- This step is the same as from the Modules and Testing labs
+- You can copy the class you created in the Classes lab
+- Focus on clean, well-structured class definition
+- Test that your class works correctly
 
-**`Headline` Class Requirements:**
+### **Expected Outcomes**
+- `headline_module.py` file is created
+- `Headline` class has proper `__init__` method
+- `__str__` method returns formatted string
+- Class can be imported and used in other files
 
-*   An `__init__` method that accepts `title` and `source` as arguments and stores them as attributes.
-*   A `__str__` method that returns a formatted string, for example: `"The title is 'The Title' from 'The Source'"`
+### **Check Your Work**
+- Does the file exist with the correct name?
+- Can you create Headline objects?
+- Does the `__str__` method work correctly?
+- Can you import the class from other files?
 
-> **Hint:** You can copy the class you created in the Classes lab.
+---
 
-## Step 2: The `main_analysis.py`
+## **Step 2: The `main_analysis.py`**
 
-Create a second file named `main_analysis.py`. This will be where the main logic of your application lives.
+### **Tasks**
+1. Create a second file named `main_analysis.py`
+2. Import the Headline class from your module
+3. Import the requests library
+4. Set up the basic file structure
 
-Start by importing the `Headline` class from your `headline_module.py` and the `requests` library.
+### **Hints**
+- This will contain the main logic of your application
+- Start with basic imports and file structure
+- Plan the organization of your functions
+- Think about how to structure the main function
 
-```python
-import requests
-from headline_module import Headline
-```
+### **Expected Outcomes**
+- `main_analysis.py` file is created
+- Required imports are working correctly
+- Basic file structure is in place
+- Ready for implementing the main logic
 
-## Step 3: Fetching the Data from the API
+### **Check Your Work**
+- Does the file exist with the correct name?
+- Can you import the Headline class?
+- Can you import the requests library?
+- Is the basic file structure ready?
 
-We will fetch live data from **NewsAPI**. The endpoint we will use is `https://newsapi.org/v2/top-headlines`.
+---
 
-A key limitation of the free "Developer" plan on NewsAPI is that you cannot filter by `country` or `category`. You can only fetch headlines from a specific list of `sources`. This is a common practice for APIs to encourage users to move to paid plans for more advanced filtering.
+## **Step 3: Fetching the Data from the API**
 
-For our lab, we will request headlines from a few major english-speaking sources like the BBC and Independent.
+### **Tasks**
+1. Create a function to load headlines from the API
+2. Handle API requests and responses
+3. Process JSON data into Headline objects
+4. Implement proper error handling
+
+### **Hints**
+- Use the NewsAPI endpoint: `https://newsapi.org/v2/top-headlines`
 
 The data comes back in a format called **JSON**. It will look something like this:
 
@@ -109,63 +172,282 @@ The data comes back in a format called **JSON**. It will look something like thi
     }
   ]
 }
-```
 
-Notice two important things:
-1.  The actual news articles are in a list under the `articles` key.
-2.  The source's name is nested inside a dictionary under the `source` key.
+- Create a `params` dictionary with sources and API key
+- Use `requests.get()` with your parameters
+- Handle the JSON response structure carefully
+- Extract title and source name from nested data
+- Use `.get()` method to avoid errors with missing keys
 
-**Your Task:**
+### **Expected Outcomes**
+- Function successfully fetches data from the API
+- JSON response is properly parsed
+- Headline objects are created from API data
+- Error handling manages API failures gracefully
+- List of Headline objects is returned
 
-Create a function `load_headlines_from_api(api_key)` that does the following:
-
-1.  Accepts your `api_key` as an argument.
-2.  Defines the URL: `https://newsapi.org/v2/top-headlines`.
-3.  Defines the parameters for the request. Create a dictionary `params` that includes the `sources` (e.g., `'bbc-news,independent'`) and your `apiKey`.
-4.  Sends the request using `requests.get(url, params=params)`.
-5.  Add robust error handling with a `try...except` block and check `response.status_code`.
-6.  If successful, get the JSON data. Access the list of articles using `response.json()['articles']`.
-7.  Create an empty list for your `Headline` objects.
-8.  Loop through the list of article dictionaries. In each iteration:
-    *   Extract the `title`.
-    *   Extract the source's `name` from the nested `source` dictionary. Be careful! Use `.get()` to avoid errors if a key is missing. e.g., `article_data.get('source', {}).get('name')`.
-    *   Create a `Headline` object.
-    *   Append it to your list.
-9.  Return the list of `Headline` objects.
-
-## Step 4: Analyzing the Sources
-
-Create a function `analyze_sources(headlines)` that takes the list of `Headline` objects and returns a dictionary.
-
-*   The **keys** of the dictionary should be the news sources (e.g., `'belfasttelegraph.co.uk'`).
-*   The **values** should be the number of times that source appeared.
-
-**Example output:** `{'belfasttelegraph.co.uk': 10, 'hindustantimes.com': 8}`
-
-> **Hint:** You can loop through the list of `Headline` objects. For each object, check if its `source` is already a key in your results dictionary. If it is, increment the value. If not, add it to the dictionary with a value of 1.
-
-## Step 5: Generating the Report
-
-Create a function `generate_report(analysis, total_headlines)` that takes the source analysis dictionary and the total number of headlines.
-
-This function should create a multi-line string containing the formatted report, as shown in the "Goal" section at the top.
-
-> **Hint:** Start with a header string. Then, loop through the `analysis` dictionary's items (`.items()`) to build the list of sources and their counts.
-
-## Step 6: Putting It All Together
-
-Create a `main()` function and use the `if __name__ == "__main__":` block to call it.
-
-The `main()` function should:
-
-1.  **Store your API key.** Create a variable at the top of your script (or inside main) and assign your API key string to it. **Do not share this key publicly.**
-2.  Call `load_headlines_from_api()` with your key to get the headlines.
-3.  Check if any headlines were returned. If not, print a message and exit.
-4.  Call `analyze_sources()` to get the source analysis.
-5.  Call `generate_report()` to create the report string.
-6.  Open `report.txt` in write mode (`'w'`) and save the report. Remember to specify `encoding='utf-8'` to handle special characters.
-7.  Print a confirmation message to the console.
+### **Check Your Work**
+- Does the function accept an API key parameter?
+- Does it make a successful API request?
+- Are Headline objects created correctly?
+- Is error handling working for failed requests?
+- Does the function return the expected data structure?
 
 ---
 
-Good luck! This final lab is your chance to see how all the individual pieces you've learned can come together to create a useful, real-world application. 
+## **Step 4: Analyzing the Sources**
+
+### **Tasks**
+1. Create a function to analyze headline sources
+2. Count headlines from each source
+3. Return a dictionary with source counts
+4. Handle edge cases and data validation
+
+### **Hints**
+- Loop through your list of Headline objects
+- Check if each source is already in your results dictionary
+- Increment existing counts or add new sources
+- Think about how to handle missing or invalid source data
+- Consider the structure of your output dictionary
+
+### **Expected Outcomes**
+- Function processes list of Headline objects
+- Dictionary is created with source names as keys
+- Count values represent number of headlines per source
+- All sources are properly counted
+- Edge cases are handled gracefully
+
+### **Check Your Work**
+- Does the function accept a headlines list?
+- Is the output dictionary structured correctly?
+- Are all sources being counted properly?
+- Does it handle empty or invalid data?
+- Is the return value in the expected format?
+
+---
+
+## **Step 5: Generating the Report**
+
+### **Tasks**
+1. Create a function to generate the report string
+2. Format the analysis data into readable text
+3. Include header information and source breakdown
+4. Structure the output for file writing
+
+### **Hints**
+- Start with a header string for your report
+- Loop through the analysis dictionary items
+- Format each source and count consistently
+- Consider the final format of your report.txt file
+- Think about readability and presentation
+
+### **Expected Outcomes**
+- Function creates a formatted report string
+- Header includes total headline count
+- Each source is listed with its count
+- Output is properly formatted for file writing
+- Report structure matches the expected format
+
+### **Check Your Work**
+- Does the function accept analysis data and total count?
+- Is the output string properly formatted?
+- Does it include all required information?
+- Is the format suitable for writing to a file?
+- Does the structure match the expected output?
+
+---
+
+## **Step 6: Putting It All Together**
+
+### **Tasks**
+1. Create a main function to orchestrate the entire process
+2. Integrate all the functions you've created
+3. Handle the complete workflow from API to report
+4. Implement proper error handling and user feedback
+
+### **Hints**
+- Store your API key securely in the main function
+- Call your functions in the correct order
+- Check for successful data retrieval
+- Write the report to `report.txt` with proper encoding
+- Provide clear feedback about the process
+
+### **Expected Outcomes**
+- Main function coordinates all operations
+- API data is successfully fetched and processed
+- Analysis is performed on the headline data
+- Report is generated and written to file
+- User receives confirmation of successful completion
+
+### **Check Your Work**
+- Does the main function call all required functions?
+- Is the API key properly stored and used?
+- Does the complete workflow execute successfully?
+- Is the report.txt file created with correct content?
+- Does the program provide appropriate user feedback?
+
+---
+
+## **Common Issues to Watch Out For**
+
+### **API Integration**
+- **Invalid API key**: Ensure your key is correct and active
+- **Rate limiting**: Be aware of API usage restrictions
+- **Network errors**: Handle connection failures gracefully
+- **Response validation**: Check API response structure
+
+### **Data Processing**
+- **Missing data**: Handle cases where fields are empty
+- **Data types**: Ensure proper conversion of API data
+- **Nested structures**: Navigate complex JSON responses carefully
+- **Error handling**: Implement robust error management
+
+### **File Operations**
+- **File permissions**: Ensure write access to create report.txt
+- **Encoding issues**: Use UTF-8 for special characters
+- **Path problems**: Verify file creation location
+- **Error handling**: Manage file write failures
+
+### **Integration Issues**
+- **Function dependencies**: Ensure proper function calling order
+- **Data flow**: Verify data moves correctly between functions
+- **Error propagation**: Handle errors at appropriate levels
+- **Resource cleanup**: Ensure proper cleanup of resources
+
+---
+
+## **Testing Your Solutions**
+
+### **Test Scenarios**
+1. **API Connection**: Verify successful API requests
+2. **Data Processing**: Check headline object creation
+3. **Source Analysis**: Validate source counting logic
+4. **Report Generation**: Test report formatting
+5. **File Writing**: Confirm report.txt creation
+6. **End-to-End**: Test complete workflow
+
+### **Expected Results**
+- API requests return valid data
+- Headline objects are created correctly
+- Source analysis produces accurate counts
+- Report is properly formatted
+- File is written successfully
+- Complete workflow executes without errors
+
+### **Verification Steps**
+1. **Run your program** and check for errors
+2. **Verify API response** - check data structure and content
+3. **Inspect headline objects** - verify attributes and methods
+4. **Check source analysis** - confirm counting accuracy
+5. **Review report.txt** - verify format and content
+6. **Test error conditions** - ensure graceful failure handling
+
+---
+
+## **Extension Ideas (Optional)**
+
+### **Enhanced API Integration**
+- **Multiple sources**: Fetch from different news sources
+- **Caching**: Implement data caching to reduce API calls
+- **Filtering**: Add date or category filtering
+- **Pagination**: Handle large result sets
+
+### **Advanced Analysis**
+- **Trend analysis**: Identify patterns in news sources
+- **Content analysis**: Analyze headline content and topics
+- **Time-based analysis**: Group headlines by publication time
+- **Source reliability**: Implement source credibility scoring
+
+### **User Experience**
+- **Interactive interface**: Add user input for search terms
+- **Multiple reports**: Generate different report formats
+- **Configuration**: Make API keys and sources configurable
+- **Logging**: Add detailed operation logging
+
+---
+
+## **Running Your Application**
+
+### **Basic Execution**
+- Ensure all required files are in place
+- Verify API key is properly configured
+- Run the main analysis script
+- Check for successful execution
+- Verify report.txt creation
+
+### **Troubleshooting**
+- **API errors**: Check key validity and network connection
+- **Import errors**: Verify file structure and imports
+- **Data errors**: Check API response format
+- **File errors**: Verify write permissions and paths
+
+---
+
+## **Why This Case Study?**
+
+This final project is powerful because it:
+- **Integrates concepts** - Combines all course learning into one project
+- **Builds real skills** - Creates a practical, useful application
+- **Demonstrates capability** - Shows mastery of multiple programming concepts
+- **Prepares for industry** - Uses professional development practices
+- **Provides portfolio piece** - Creates a project you can showcase
+- **Builds confidence** - Proves you can build complete applications
+
+---
+
+## **Real-World Applications**
+
+This type of application is used everywhere in professional development:
+- **News aggregation**: Building news monitoring systems
+- **Data analysis**: Processing external data sources
+- **Report generation**: Creating automated reporting systems
+- **API integration**: Working with third-party services
+- **Content management**: Processing and organizing information
+- **Business intelligence**: Analyzing data for insights
+
+---
+
+## **Professional Development**
+
+This case study introduces you to:
+- **Full-stack development**: Building complete applications
+- **API integration**: Working with external services
+- **Data processing**: Analyzing and transforming information
+- **Error handling**: Managing real-world failure scenarios
+- **Code organization**: Structuring complex applications
+- **Testing and validation**: Ensuring application reliability
+
+---
+
+## **Success Criteria**
+
+Your application is successful when:
+- ✅ API data is successfully fetched
+- ✅ Headline objects are properly created
+- ✅ Source analysis produces accurate counts
+- ✅ Report is correctly formatted
+- ✅ File is successfully written
+- ✅ Complete workflow executes without errors
+- ✅ Code is well-organized and maintainable
+- ✅ Error handling is robust and user-friendly
+
+---
+
+## **Solutions**
+
+**Complete code examples for all exercises are available in the `solutions/final-case-study` folder.**
+
+- `solutions/headline_module.py` - Headline class definition
+- `solutions/main_analysis.py` - Complete news analysis application
+- `solutions/step_by_step/` - Individual step solutions
+
+---
+
+**Remember**: 
+- Start with the basic structure and build complexity gradually
+- Test each component individually before integration
+- Handle errors gracefully at every level
+- Keep your code organized and well-documented
+- This is your chance to demonstrate everything you've learned
+
+Good luck! This final case study is your opportunity to see how all the individual pieces you've learned can come together to create a useful, real-world application that showcases your programming skills! 
