@@ -45,7 +45,7 @@ print("Step 3: Search Function Complete!")
 print("=" * 50)
 
 # Test with different keywords
-test_keywords = ["new", "tax", "NHS", "London"]
+test_keywords = ["new", "tax", "NHS", "London", "to"]
 
 for keyword in test_keywords:
     print(f"\nSearching for '{keyword}':")
