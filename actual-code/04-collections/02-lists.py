@@ -52,11 +52,11 @@ os.system('cls' if os.name == 'nt' else 'clear')
 # print(expenses)
 
 bands = [
-    ["John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"],  # The Beatles
     ["Freddie Mercury", "Brian May", "Roger Taylor", "John Deacon"],      # Queen
     ["Kurt Cobain", "Krist Novoselic", "Dave Grohl"],                     # Nirvana
     ["Mick Jagger", "Keith Richards", "Charlie Watts", "Ronnie Wood"],   # The Rolling Stones
     ["Beyoncé", "Kelly Rowland", "Michelle Williams"],                   # Destiny's Child
+    ["John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"],  # The Beatles
     ["Thom Yorke", "Jonny Greenwood", "Colin Greenwood", "Ed O'Brien", "Phil Selway"],  # Radiohead
     ["Bono", "The Edge", "Adam Clayton", "Larry Mullen Jr."],            # U2
     ["Chris Martin", "Guy Berryman", "Jonny Buckland", "Will Champion"], # Coldplay
@@ -80,3 +80,13 @@ list_2 = list_1.copy()
 list_2.extend([3,4,5])
 print(list_2)
 print(list_1)
+
+
+print(bands[0])
+print(tuple(bands[0]))
+
+band_tuples = []
+for band in bands:
+  band_tuples.append(tuple(band))
+
+bands = band_tuples
