@@ -5,8 +5,8 @@
   - [Email](mailto:kevin@kevincunningham.co.uk)
   - [My website](https://kevincunningham.co.uk)
 - [Repo link](https://github.com/doingandlearning/python-august-2025)
-- [Miro link]()
-- [Feedback link]()
+- [Miro link](https://miro.com/app/board/uXjVJQevpJM=/)
+- [Feedback link](https://forms.office.com/e/NuS9TKLBRN)
 
 ## Timings:
 
