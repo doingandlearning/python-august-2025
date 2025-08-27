@@ -51,7 +51,7 @@ This three-day course offers a practical, hands-on journey into the world of Pyt
 ### 5. Container Types
 
 - Advanced data structures in Python
-- Working with lists, sets, and dictionaries
+- Working with tuples, lists, sets, and dictionaries
 - Performing basic data analysis
 
 ### 6. Functions

@@ -29,7 +29,7 @@ print("-" * 50)
 
 for headline in headlines:
     # Convert both to lowercase for case-insensitive search
-    if search_term.lower() in headline.lower():
+    if search_term.lower() in headline:
         print(f"• {headline}")
         matching_headlines += 1
 

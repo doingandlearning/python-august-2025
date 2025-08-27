@@ -15,6 +15,7 @@ user_dict = {
     "postcode": ""
   },
   (0,1): "",
+  "birthday": "01-01-01",
 }
 
 print(user_dict["name"])

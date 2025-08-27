@@ -25,6 +25,7 @@ for headline in headlines:
     # Split each headline into words and count them
     words = headline.split()
     total_words += len(words)
+    # total_words = total_words + len(words)
 
 # Calculate and display the average
 average_words = total_words / total_headlines
