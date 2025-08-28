@@ -20,7 +20,7 @@ z_values = np.sin(x_values + y_values)
 figure = pyplot.figure()
 
 # Get the axes object for the 3D graph
-axes = figure.gca(projection='3d')
+axes = figure.add_subplot(111, projection='3d')
 
 # Plot the surface.
 surf = axes.plot_surface(x_values,
