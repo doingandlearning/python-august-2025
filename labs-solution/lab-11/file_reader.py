@@ -25,10 +25,10 @@ def load_headlines_from_csv(filename):
             next(csv_reader)
             
             # Process each data row
-            for row in csv_reader:
+            for text, source in csv_reader:
                 # Extract text and source from the row
-                text = row[0]
-                source = row[1]
+                # text = row[0]
+                # source = row[1]
                 
                 # Create a Headline object and add it to the list
                 headline = Headline(text, source)
@@ -127,7 +127,7 @@ def main():
     print("=" * 60)
     
     # Step 1: Load headlines from CSV file
-    filename = "headlines.csv"
+    filename = "headlines_sources.csv"
     headlines = load_headlines_from_csv(filename)
     
     if not headlines:
