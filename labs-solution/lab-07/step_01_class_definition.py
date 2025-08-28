@@ -25,6 +25,7 @@ class Headline:
 print("Step 1: Class Definition Complete!")
 print("=" * 50)
 
+
 # Create test objects
 headline1 = Headline("General election: Labour and Tories clash over tax", "BBC News")
 headline2 = Headline("England crowned T20 world champions", "Sky Sports")

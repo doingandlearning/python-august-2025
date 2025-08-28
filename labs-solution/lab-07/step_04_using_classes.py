@@ -147,3 +147,5 @@ print(f"Shortest headline: '{shortest_headline.text}' ({shortest_headline.get_wo
 print("\n" + "=" * 50)
 print("Step 4 complete! Classes are working in practice.")
 print("=" * 50)
+
+print([h.get_word_count() for h in headlines])

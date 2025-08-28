@@ -26,7 +26,7 @@ class Headline:
         Return a string representation of the Headline object.
         
         Returns:
-            str: A readable representation of the headline
+            str: A human readable representation of the headline
         """
         return f"Headline(text='{self.text}', source='{self.source}')"
 
@@ -78,3 +78,8 @@ print(f"  {headline1}")
 print("\n" + "=" * 50)
 print("Step 2 complete! String representation is working.")
 print("=" * 50)
+
+print([headline1, headline2, headline3])
+
+# print -> __str__ -> __repr__ -> ugly!
+# print(list) -> __repr__ -> ugly
