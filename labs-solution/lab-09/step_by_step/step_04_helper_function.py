@@ -6,7 +6,7 @@ import random
 def get_valid_guess(attempt_number, max_attempts):
     """
     Helper function to get and validate user input.
-    Returns a valid guess or None if input is invalid.
+    Returns a valid guess and reprompts the user if it's not.
     """
     print(f"\nAttempt {attempt_number} of {max_attempts}")
     
@@ -17,14 +17,14 @@ def get_valid_guess(attempt_number, max_attempts):
         # Check if the guess is within valid range
         if guess < 1 or guess > 50:
             print("❌ Please enter a number between 1 and 50!")
-            return None
+            return get_valid_guess(attempt_number, max_attempts)
         
         return guess
         
     except ValueError:
         # Handle invalid input (non-numeric)
         print("❌ That's not a valid number! Please try again.")
-        return None
+        return get_valid_guess(attempt_number, max_attempts) 
 
 def main():
     """
